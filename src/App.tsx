@@ -14,22 +14,21 @@ interface User {
     geo: {
       lat: string;
       lng: string;
-    }
+    };
   };
 }
 
 const URL_API = "https://jsonplaceholder.typicode.com/users";
 
 interface SearchField {
-  name: string
+  name: string;
 }
 
 export default function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [filter, setFilter] = useState<SearchField>({
-    name: ""
+    name: "",
   });
-
   const fetchUsers = useCallback(
     async (filterParams: SearchField | undefined) => {
       const queryParams = filterParams?.name
@@ -45,7 +44,7 @@ export default function App() {
     },
     [],
   );
-  
+
   const removeUser = useCallback(
     async (id: number) => {
       try {
@@ -91,11 +90,15 @@ export default function App() {
 
   const handleSearch = () => {
     fetchUsers(filter);
-  }
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const openDrawer = () => setIsOpen(true);
+  const closeDrawer = () => setIsOpen(false);
 
   return (
     <>
-      <section className="user-filter">
+      <section className="user-filter border-1">
         <h3>Filtro de usuários</h3>
 
         <label htmlFor="name">Nome</label>
@@ -105,12 +108,40 @@ export default function App() {
           onChange={(e) => setFilter({ name: e.target.value })}
         />
 
-        <button className="btn-search" onClick={() => handleSearch()}>
+        <button
+          className="cursor-pointer border-1"
+          onClick={() => handleSearch()}
+        >
           Pesquisar
         </button>
-      </section>
+        <aside className="flex w-full ">
+          <button
+            onClick={openDrawer}
+            className="bg-white-500 cursor-pointer border-1 hover:bg-gray-500"
+          >
+            Abrir drawer
+          </button>
 
-      <section className="user-list">
+          {isOpen && (
+            <form className="flex flex-col gap-4 px-10 h-full fixed right-0 bg-gray-500  ">
+              <h3 className="">Cadastrar usuário</h3>
+              <label htmlFor="name">Nome</label>
+              <input type="text" placeholder="Nome completo" />
+              <label htmlFor="email">E-mail</label>
+              <input type="email" placeholder="Digite um e-mail válido" />
+              <label htmlFor="number">Telefone</label>
+              <input type="tel" placeholder="Digite um número válido" />
+              <button
+                className="text-white border-1 cursor-pointer"
+                onClick={closeDrawer}
+              >
+                Fechar
+              </button>
+            </form>
+          )}
+        </aside>
+      </section>
+      <section className="flex justify-center">
         <h4>Listagem de usuários</h4>
         <table>
           <thead>
@@ -127,12 +158,15 @@ export default function App() {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
-                <td>
-                  <button className="btn-edit" onClick={() => handleEdit(user)}>
+                <td className="flex gap-3 p-2">
+                  <button
+                    className="cursor-pointer text-white bg-gray-500 hover:bg-gray-800 rounded-sm p-1"
+                    onClick={() => handleEdit(user)}
+                  >
                     Editar
                   </button>
                   <button
-                    className="btn-delete"
+                    className="cursor-pointer border-1 bg-red-500 text-white hover:bg-gray-800 rounded-sm p-1"
                     onClick={() => handleDelete(user)}
                   >
                     Excluir
