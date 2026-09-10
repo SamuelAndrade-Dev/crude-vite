@@ -9,19 +9,18 @@ Construir uma interface de usuário consumindo uma API REST para realizar opera�
 - Node v26.7.0
 - Yarn
 
-## Biliotecas utilizadas: 
+## Biliotecas utilizadas:
 
 - **React + Vite**
 - **Taillwind CSS**
 - **Axios**
 - **Tanstack Form**
 
-## Microserviço / API Utilizada: 
+## Microserviço / API Utilizada:
 
 - Endpoint `https://jsonplaceholder.typicode.com/users`
 
-## Para executar em modo desenvolvimento: 
-
+## Para executar em modo desenvolvimento:
 
 ```
 yarn install
