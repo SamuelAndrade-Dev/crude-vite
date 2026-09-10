@@ -11,6 +11,7 @@ interface UserListProps {
     phone: string;
   }[];
   onPageChange?: (page: number) => void;
+  onChangeUser?: (user: UserTableData) => void;
   onRemoveUser?: (user: UserTableData) => void;
 }
 
@@ -18,12 +19,13 @@ export const UserList = ({
   users,
   isFetching,
   onPageChange,
+  onChangeUser,
   onRemoveUser,
 }: UserListProps) => (
   <article className="flex flex-col gap-4">
     <Table
       data={users}
-      columns={UserTableColumns({ onRemoveUser, onChangeUser: undefined })}
+      columns={UserTableColumns({ onRemoveUser, onChangeUser })}
       rowKey={(row) => row.id}
       loading={isFetching}
     />
