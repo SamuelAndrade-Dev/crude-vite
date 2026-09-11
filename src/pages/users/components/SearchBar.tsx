@@ -14,10 +14,9 @@ type SearchBarFormData = z.infer<typeof schema>;
 
 interface SearchBarProps {
   onFilter: (data: SearchBarFormData) => void;
-  onCreateUser: () => void;
 }
 
-export const SearchBar = ({ onFilter, onCreateUser }: SearchBarProps) => {
+export const SearchBar = ({ onFilter }: SearchBarProps) => {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       name: "",
@@ -42,9 +41,6 @@ export const SearchBar = ({ onFilter, onCreateUser }: SearchBarProps) => {
       </Button>
       <Button variant="secondary" size="md" type="button" onClick={handleClick}>
         Limpar
-      </Button>
-      <Button type="button" onClick={onCreateUser}>
-        Cadastrar usuário
       </Button>
     </form>
   );
